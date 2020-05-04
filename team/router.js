@@ -7,7 +7,9 @@ const router = new Router()
 
 // To read all the teams
 router.get('/team', (req, res, next) => {
-    teamModel.findAll()
+    teamModel.findAll({
+        include: [cityModel]
+    })
         .then(teams => res.send(teams))
         .catch(next)
 })

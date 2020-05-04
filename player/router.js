@@ -11,7 +11,9 @@ router.get('/player', (req, res, next) => {
     // console.log(req.query)
     if (Object.keys(req.query).length === 0) {
         // No query parameter in route and return all players
-        playerModel.findAll()
+        playerModel.findAll({
+            include: [teamModel, cityModel]
+        })
             .then(players => res.send(players))
             .catch(next)
     }
@@ -29,7 +31,8 @@ router.get('/player', (req, res, next) => {
                         playerModel.findAll({
                             where: {
                                 teamId: team.id
-                            }
+                            },
+                            include: [teamModel, cityModel]
                         })
                             .then(players => {
                                 res.json(players)
@@ -54,7 +57,8 @@ router.get('/player', (req, res, next) => {
                         playerModel.findAll({
                             where: {
                                 cityId: city.id
-                            }
+                            },
+                            include: [teamModel, cityModel]
                         })
                             .then(players => {
                                 res.json(players)
