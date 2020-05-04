@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const database = require('../database')
+const City = require('../city/model')
 
 const Team = database.define(
     'team',
@@ -13,5 +14,7 @@ const Team = database.define(
         tableName: 'football_teams'
     }
 )
+
+Team.belongsTo(City)
 
 module.exports = Team
